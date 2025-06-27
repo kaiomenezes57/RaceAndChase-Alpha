@@ -8,7 +8,8 @@ namespace Game.Entity.Components
     {
         void AddEntityComponent<T>(T component) where T : IEntityComponent;
         T GetEntityComponent<T>() where T : IEntityComponent;
-        void RemoveComponents<T>() where T : IEntityComponent;
+        void RemoveEntityComponents<T>() where T : IEntityComponent;
+        void SwitchAllEntityComponents(bool active);
     }
 
     public sealed partial class EntityComponentsHolder : MonoBehaviour
@@ -55,9 +56,15 @@ namespace Game.Entity.Components
             return (T)_components.Find(c => c.GetType() == typeof(T));
         }
 
-        public void RemoveComponents<T>() where T : IEntityComponent
+        public void RemoveEntityComponents<T>() where T : IEntityComponent
         {
             _components.RemoveAll(c => c.GetType() == typeof(T));
+        }
+
+        public void SwitchAllEntityComponents(bool active)
+        {
+            for (int i = 0; i < _components.Count; i++)
+                _components[i].IsActive = active;
         }
     }
 }
