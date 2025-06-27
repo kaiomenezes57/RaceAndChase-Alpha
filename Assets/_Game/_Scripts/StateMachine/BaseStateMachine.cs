@@ -34,6 +34,7 @@ namespace Game.StateMachine
         }
     }
 
+    #region STATE
     public interface IState { }
     public interface IStateEnter : IState
     {
@@ -49,4 +50,5 @@ namespace Game.StateMachine
     {
         void Exit(IStateMachine stateMachine);
     }
+    #endregion
 }
