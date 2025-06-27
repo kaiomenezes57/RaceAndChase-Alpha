@@ -11,12 +11,15 @@ namespace Game.Entity
         float CurrentHealth { get; }
         float MaxHealth { get; }
 
+        MonoBehaviour MonoBehaviour { get; }
+
         void Damage(DamageData damageData);
         void Heal(HealData healData);
     }
 
     public class BaseAliveEntity : MonoBehaviour, IAliveEntity
     {
+        public MonoBehaviour MonoBehaviour => this;
         public bool IsAlive => CurrentHealth > 0f;
         public float CurrentHealth 
         {

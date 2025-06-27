@@ -1,3 +1,4 @@
+using Game.Entity;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
@@ -9,6 +10,7 @@ namespace Game.VContainer
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.RegisterComponentInHierarchy<IPlayer>();
         }
 
         private void AddGameObjectsScoped<TConcrete>() where TConcrete : MonoBehaviour
