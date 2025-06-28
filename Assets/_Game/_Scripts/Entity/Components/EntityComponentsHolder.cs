@@ -34,6 +34,15 @@ namespace Game.Entity.Components
             }
         }
 
+        private void FixedUpdate()
+        {
+            for (int i = 0; i < _components.Count; i++)
+            {
+                if (!_components[i].IsActive) continue;
+                (_components[i] as IEntityComponentFixedUpdater)?.FixedUpdate(this);
+            }
+        }
+
         private void OnDisable()
         {
             for (int i = 0; i < _components.Count; i++)
@@ -65,6 +74,17 @@ namespace Game.Entity.Components
         {
             for (int i = 0; i < _components.Count; i++)
                 _components[i].IsActive = active;
+        }
+
+        public void SwitchEntityComponent<T>(bool active) where T : IEntityComponent
+        {
+            if (GetEntityComponent<T>() is not { } component) return;
+            SwitchEntityComponent(component, active);
+        }
+
+        public void SwitchEntityComponent(IEntityComponent component, bool active)
+        {
+            component.IsActive = active;
         }
     }
 }

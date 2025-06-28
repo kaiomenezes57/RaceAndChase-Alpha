@@ -30,10 +30,12 @@ namespace Game.Entity
                 _currentHealth = Mathf.Clamp(_currentHealth - value, 0f, MaxHealth);
             }
         }
+
+        [field: Title("Alive Entity Settings")]
         [field: SerializeField, MinValue(0f)] public float MaxHealth { get; private set; }
         [SerializeField, ReadOnly] private float _currentHealth;
 
-        private void Start()
+        protected virtual void Start()
         {
             CurrentHealth = MaxHealth;
         }
@@ -60,6 +62,9 @@ namespace Game.Entity
             EventBus.Raise(new TakeHeal_GameEvent(healData));
         }
 
-        protected virtual void Die() => EventBus.Raise(new EntityDie_GameEvent(this));
+        protected virtual void Die()
+        {
+            EventBus.Raise(new EntityDie_GameEvent(this));
+        }
     }
 }

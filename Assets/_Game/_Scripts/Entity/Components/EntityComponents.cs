@@ -1,6 +1,7 @@
 using Game.Events;
 using Game.Interaction;
 using Game.Utils.Collision;
+using log4net.Util;
 using Sirenix.OdinInspector;
 using System.Linq;
 using UnityEngine;
@@ -24,11 +25,71 @@ namespace Game.Entity.Components
         void Update(MonoBehaviour owner);
     }
 
+    public interface IEntityComponentFixedUpdater : IEntityComponent
+    {
+        void FixedUpdate(MonoBehaviour owner);
+    }
+
     public interface IEntityComponentCleaner : IEntityComponent
     {
         void Clear(MonoBehaviour owner);
     }
     #endregion
+
+    public sealed class DriveByInput_EntityComponent : IEntityComponentUpdater, IEntityComponentFixedUpdater
+    {
+        public bool IsActive { get; set; }
+        public bool IsMoving => _rigidbody.linearVelocity.magnitude > 0.1f;
+        private const float DRAG_FACTOR = 0.98f;
+        private const float DRIFT_FACTOR = 0.95f;
+
+        [SerializeField] private float _acceleration = 3000f;
+        [SerializeField] private float _maxSpeed = 50f;
+        [SerializeField] private Rigidbody _rigidbody;
+
+        private float _inputForward;
+        private float _inputTurn;
+
+        public void Update(MonoBehaviour owner)
+        {
+            _inputForward = Input.GetAxis("Vertical");
+            _inputTurn = Input.GetAxis("Horizontal");
+        }
+
+        public void FixedUpdate(MonoBehaviour owner)
+        {
+            Accelerate(owner);
+            Steer(owner);
+            ApplyPhysics(owner);
+        }
+
+        private void Accelerate(MonoBehaviour owner)
+        {
+            if (_rigidbody.linearVelocity.magnitude >= _maxSpeed) return;
+            _rigidbody.AddForce(_acceleration * _inputForward * Time.fixedDeltaTime * owner.transform.forward);
+        }
+
+        private void ApplyPhysics(MonoBehaviour owner)
+        {
+            Vector3 localVelocity = owner.transform.InverseTransformDirection(_rigidbody.linearVelocity);
+            localVelocity.x *= DRIFT_FACTOR;
+            _rigidbody.linearVelocity = owner.transform.TransformDirection(localVelocity);
+
+            _rigidbody.linearVelocity *= DRAG_FACTOR;
+        }
+
+        public void Steer(MonoBehaviour owner)
+        {
+            if (!IsMoving) return;
+
+            float speedFactor = Mathf.Clamp01(_rigidbody.linearVelocity.magnitude / _maxSpeed);
+            float movingDirection = Vector3.Dot(_rigidbody.linearVelocity, owner.transform.forward) >= 0 ? 1f : -1f;
+            float steerAmount = _inputTurn * 10f * speedFactor * movingDirection;
+            Quaternion deltaRotation = Quaternion.Euler(0f, steerAmount, 0f);
+
+            _rigidbody.MoveRotation(_rigidbody.rotation * deltaRotation);
+        }
+    }
 
     public sealed class MoveByInput_EntityComponent : IEntityComponentUpdater
     {
