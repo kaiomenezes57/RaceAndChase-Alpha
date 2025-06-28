@@ -1,10 +1,21 @@
 using Game.Entity;
 using Game.Entity.Combat;
+using Game.Entity.Vehicles;
 using Game.Interaction;
 
 namespace Game.Events
 {
     public interface IGameEvent { }
+    public sealed class VehicleEnter_GameEvent : IGameEvent
+    {
+        public Vehicle Vehicle { get; private set; }
+        
+        public VehicleEnter_GameEvent(Vehicle vehicle)
+        {
+            Vehicle = vehicle;
+        }
+    }
+
     public sealed class InteractionStart_GameEvent : IGameEvent
     {
         public IInteractable Interactable { get; private set; }

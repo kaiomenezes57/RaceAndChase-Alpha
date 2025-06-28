@@ -1,5 +1,5 @@
 using Game.Entity;
-using Game.Entity.Cars;
+using Game.Entity.Vehicles;
 using Game.Utils;
 using Game.Utils.GlobalReferences;
 using System.Collections.Generic;
@@ -14,9 +14,11 @@ namespace Game.VContainer
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponentInHierarchy<IPlayer>();
+            builder.RegisterComponentInHierarchy<IPlayerVehicleManager>();
 
             AddGameObjectsScoped<PlayerGR>();
             AddGameObjectsScoped<ResolverGR>();
+            AddGameObjectsScoped<Vehicle>();
         }
 
         private void AddGameObjectsScoped<TConcrete>() where TConcrete : MonoBehaviour
