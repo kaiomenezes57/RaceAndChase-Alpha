@@ -1,5 +1,6 @@
 using Game.Entity;
 using Game.Entity.Combat;
+using Game.Entity.Components;
 using Game.Entity.Vehicles;
 using Game.Interaction;
 
@@ -58,11 +59,11 @@ namespace Game.Events
 
     public sealed class EntityDie_GameEvent : IGameEvent
     {
-        public IAliveEntity AliveEntity { get; private set; }
+        public IHealth Health { get; private set; }
 
-        public EntityDie_GameEvent(IAliveEntity aliveEntity)
+        public EntityDie_GameEvent(IHealth aliveEntity)
         {
-            AliveEntity = aliveEntity;
+            Health = aliveEntity;
         }
     }
 }

@@ -4858,7 +4858,9 @@ GameObject:
   - component: {fileID: 1835731075}
   - component: {fileID: 1835731078}
   - component: {fileID: 1835731076}
-  - component: {fileID: 1835731077}
+  - component: {fileID: 1835731080}
+  - component: {fileID: 1835731079}
+  - component: {fileID: 1835731081}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -4894,42 +4896,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5789389b26f7ce147a10e4441df86d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
-  _currentHealth: 0
---- !u!114 &1835731077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835731074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fe5c58cb80ae074c80eb1f0c03c38b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _components:
-  - rid: 5032536818601689153
-  - rid: 5032536839000948801
-  references:
-    version: 2
-    RefIds:
-    - rid: 5032536818601689153
-      type: {class: MoveByInput_EntityComponent, ns: Game.Entity.Components, asm: RaceAndChase.Runtime}
-      data:
-        _characterController: {fileID: 1835731078}
-        _movementSpeed: 10
-        _rotationSpeed: 15
-        _moveAxis: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-    - rid: 5032536839000948801
-      type: {class: InteractionBrowser_EntityComponent, ns: Game.Entity.Components, asm: RaceAndChase.Runtime}
-      data:
-        _raycast:
-          _size: 2
-          _layerMask:
-            serializedVersion: 2
-            m_Bits: 55
-        _interactInput: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!143 &1835731078
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4955,6 +4921,54 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1835731079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835731074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bfb5087b7e7e444399848787c875cc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterController: {fileID: 1835731078}
+  _movementSpeed: 15
+  _rotationSpeed: 15
+  _moveAxis: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+--- !u!114 &1835731080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835731074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3151f0ebdd0852a41be4870354e66e3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 100
+  _currentHealth: 0
+--- !u!114 &1835731081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835731074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4651e49b8e060c44bbbf0ac4a328599f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _raycast:
+    _size: 2
+    _layerMask:
+      serializedVersion: 2
+      m_Bits: 55
+  _interactInput: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &2064242886
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,30 +1,26 @@
-using Game.Entity.Components;
 using Game.Interaction;
-using Game.Utils.GlobalReferences;
 using UnityEngine;
 using VContainer;
 
 namespace Game.Entity.Vehicles
 {
-    public sealed class Vehicle : BaseAliveEntity, IInteractable
+    [RequireComponent(typeof(DriveByInput))]
+    public sealed class Vehicle : MonoBehaviour, IInteractable
     {
         public enum DriverState { None = 0, NPC = 1, Player = 2, }
         public bool IsInteractable => _driverState != DriverState.Player;
         public bool IsMoving => _driveByInput.IsMoving;
         
         [Inject] private readonly IPlayerVehicleManager _manager;
-        private DriveByInput_EntityComponent _driveByInput;
+        private DriveByInput _driveByInput;
         private DriverState _driverState;
 
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
-
-            if (TryGetComponent<EntityComponentsHolder>(out var holder) &&
-                holder.GetEntityComponent<DriveByInput_EntityComponent>() is { } driverByInput)
+            if (TryGetComponent<DriveByInput>(out var holder))
             {
-                _driveByInput = driverByInput;
-                _driveByInput.IsActive = false;
+                _driveByInput = holder;
+                _driveByInput.enabled = false;
                 return;
             }
 
@@ -43,21 +39,13 @@ namespace Game.Entity.Vehicles
 
         public void SetDriver(DriverState driver)
         {
-            _driveByInput.IsActive = driver == DriverState.Player;
+            _driveByInput.enabled = driver == DriverState.Player;
             _driverState = driver;
         }
 
         public void Interact()
         {
             _manager.EnterVehicle(this);
-        }
-
-        protected override void Die()
-        {
-            base.Die();
-#if UNITY_EDITOR
-            Debug.Log($"{gameObject.name} has been exploded.");
-#endif
         }
     }
 }

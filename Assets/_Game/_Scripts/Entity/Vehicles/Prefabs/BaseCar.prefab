@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: -9073361332520691620}
   - component: {fileID: -4624006236225186958}
   - component: {fileID: -7305461653352835368}
-  - component: {fileID: 899317208503137334}
+  - component: {fileID: 5265213722236500255}
+  - component: {fileID: 7304685431181150355}
   m_Layer: 0
   m_Name: BaseCar
   m_TagString: Untagged
@@ -95,9 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b47631f50908b94382cdff9e1ef5c93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
-  _currentHealth: 0
---- !u!114 &899317208503137334
+--- !u!114 &5265213722236500255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,17 +105,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 8555758510792828134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fe5c58cb80ae074c80eb1f0c03c38b1, type: 3}
+  m_Script: {fileID: 11500000, guid: c9508460365a7564a8226b30fe65931d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _components:
-  - rid: 5032536839000949006
-  references:
-    version: 2
-    RefIds:
-    - rid: 5032536839000949006
-      type: {class: DriveByInput_EntityComponent, ns: Game.Entity.Components, asm: RaceAndChase.Runtime}
-      data:
-        _acceleration: 3000
-        _maxSpeed: 50
-        _rigidbody: {fileID: -9073361332520691620}
+  _acceleration: 3000
+  _maxSpeed: 50
+  _rigidbody: {fileID: -9073361332520691620}
+--- !u!114 &7304685431181150355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555758510792828134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f04b649e649f81a4da5c3602b98ecaf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 100
+  _currentHealth: 0

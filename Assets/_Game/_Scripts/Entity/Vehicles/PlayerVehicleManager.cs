@@ -1,4 +1,5 @@
 using Game.Entity.Components;
+using Game.Entity.Player;
 using Game.Events;
 using Game.Utils.GlobalReferences;
 using UnityEngine;
@@ -25,9 +26,7 @@ namespace Game.Entity.Vehicles
             playerGO.transform.localPosition = Vector3.zero;
 
             //TO DO
-            PlayerGR.Instance.GameObject
-                .GetComponent<EntityComponentsHolder>()
-                .GetEntityComponent<MoveByInput_EntityComponent>().IsActive = false;
+            playerGO.GetComponent<PlayerMovement>().enabled = false;
 
             car.SetDriver(Vehicle.DriverState.Player);
             CurrentVehicle = car;
@@ -38,11 +37,13 @@ namespace Game.Entity.Vehicles
         public void ExitVehicle()
         {
             if (CurrentVehicle is not { IsMoving: false }) return;
-            var player = PlayerGR.Instance.GameObject;
+            var playerGO = PlayerGR.Instance.GameObject;
 
-            player.SetActive(true);
-            player.transform.SetParent(null);
-            player.transform.position = CurrentVehicle.transform.position + (-CurrentVehicle.transform.right * 2f);
+            playerGO.SetActive(true);
+            playerGO.transform.SetParent(null);
+            playerGO.transform.position = CurrentVehicle.transform.position + (-CurrentVehicle.transform.right * 2f);
+
+            playerGO.GetComponent<PlayerMovement>().enabled = true;
 
             CurrentVehicle.SetDriver(Vehicle.DriverState.None);
             CurrentVehicle = null;

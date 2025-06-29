@@ -3,9 +3,9 @@ using Game.Events;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Entity
+namespace Game.Entity.Components
 {
-    public interface IAliveEntity
+    public interface IHealth
     {
         bool IsAlive { get; }
         float CurrentHealth { get; }
@@ -17,11 +17,11 @@ namespace Game.Entity
         void Heal(HealData healData);
     }
 
-    public class BaseAliveEntity : MonoBehaviour, IAliveEntity
+    public abstract class BaseHealth : MonoBehaviour, IHealth
     {
         public MonoBehaviour MonoBehaviour => this;
         public bool IsAlive => CurrentHealth > 0f;
-        public float CurrentHealth 
+        public float CurrentHealth
         {
             get => _currentHealth;
             private set
@@ -31,7 +31,7 @@ namespace Game.Entity
             }
         }
 
-        [field: Title("Alive Entity Settings")]
+        [field: Title("Health Settings")]
         [field: SerializeField, MinValue(0f)] public float MaxHealth { get; private set; }
         [SerializeField, ReadOnly] private float _currentHealth;
 
@@ -52,7 +52,7 @@ namespace Game.Entity
 
             for (int i = 0; i < damageData.Effects.Count; i++)
                 damageData.Effects[i]?.Execute(damageData);
-         
+
             EventBus.Raise(new TakeDamage_GameEvent(damageData));
         }
 

@@ -1,6 +1,5 @@
-using Game.Entity;
+using Game.Entity.Player;
 using Game.Entity.Vehicles;
-using Game.Utils;
 using Game.Utils.GlobalReferences;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +12,7 @@ namespace Game.VContainer
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterComponentInHierarchy<IPlayer>();
+            builder.RegisterComponentInHierarchy<IPlayerReference>();
             builder.RegisterComponentInHierarchy<IPlayerVehicleManager>();
 
             AddGameObjectsScoped<PlayerGR>();
