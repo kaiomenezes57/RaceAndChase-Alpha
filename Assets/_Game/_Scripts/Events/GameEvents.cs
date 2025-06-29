@@ -59,9 +59,9 @@ namespace Game.Events
 
     public sealed class EntityDie_GameEvent : IGameEvent
     {
-        public IHealth Health { get; private set; }
+        public IAlive Health { get; private set; }
 
-        public EntityDie_GameEvent(IHealth aliveEntity)
+        public EntityDie_GameEvent(IAlive aliveEntity)
         {
             Health = aliveEntity;
         }

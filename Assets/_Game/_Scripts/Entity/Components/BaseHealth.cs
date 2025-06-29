@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Entity.Components
 {
-    public interface IHealth
+    public interface IAlive
     {
         bool IsAlive { get; }
         float CurrentHealth { get; }
@@ -17,7 +17,7 @@ namespace Game.Entity.Components
         void Heal(HealData healData);
     }
 
-    public abstract class BaseHealth : MonoBehaviour, IHealth
+    public abstract class BaseHealth : MonoBehaviour, IAlive
     {
         public MonoBehaviour MonoBehaviour => this;
         public bool IsAlive => CurrentHealth > 0f;
